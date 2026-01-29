@@ -49,10 +49,15 @@ Best practice suggestions
 **Frontend:**
 
 1. React.js
+ 
 2. Axios
+  
 3. HTML5
+  
 4. CSS3
-5.JavaScript
+  
+5. JavaScript
+
 
 **Backend:**
 
@@ -132,6 +137,9 @@ The purpose of Code Analyst AI is to assist developers in improving their code q
 ✨ Future Enhancements
 
 1.Support for multiple programming languages
+
 2.Authentication system
+
 3.Code review history
+
 4.UI improvements
