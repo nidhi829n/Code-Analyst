@@ -45,29 +45,31 @@ Best practice suggestions
 ---
 
 🛠️ Tech Stack
-Frontend:
 
-React.js
+**Frontend:**
 
-Axios
+1.React.js
 
-HTML5
+2.Axios
 
-CSS3
+3.HTML5
 
-JavaScript
+4.CSS3
 
-Backend:
+5.JavaScript
 
-Node.js
+**Backend:**
 
-Express.js
+1.Node.js
 
-Google Generative AI
+2.Express.js
 
-dotenv
+3.Google Generative AI
 
-CORS
+4.dotenv
+
+5.Cors
+
 ---
 📂 Project Structure
 Code-Analyst/
@@ -93,15 +95,10 @@ git clone https://github.com/your-username/Code-Analyst.git
 2️⃣ Backend Setup
 cd backend
 npm install
-
-
 Create a .env file:
-
 GOOGLE_GEMINI_KEY=your_api_key_here
 
-
 Run backend:
-
 nodemon server.js
 
 3️⃣ Frontend Setup
@@ -122,25 +119,26 @@ Response:
 
 AI-generated review including:
 
-Code quality feedback
+1.Code quality feedback
 
-Bug detection
+2.Bug detection
 
-Optimization suggestions
+3.Optimization suggestions
 
-Best practices
+4.Best practices
 
-
----🎯 Purpose
+---
+🎯 Purpose
 
 The purpose of Code Analyst AI is to assist developers in improving their code quality by providing quick and intelligent AI-based feedback without manual code review.
 
+---
 ✨ Future Enhancements
 
-Support for multiple programming languages
+1.Support for multiple programming languages
 
-Authentication system
+2.Authentication system
 
-Code review history
+3.Code review history
 
-UI improvements
+4.UI improvements
