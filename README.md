@@ -3,6 +3,11 @@
 Code Analyst AI is a full-stack web application that helps developers analyze and review their source code using AI-powered suggestions. It provides instant feedback on code quality, detects potential bugs, suggests optimizations, and follows best coding practices to improve performance and maintainability.
 
 ---
+
+## 🖼️ Project Screenshot
+ ![Code Analyst Screenshot](./code%20analyst.png)
+
+---
 📌 Features
 
 🧠 AI-Powered Code Analysis
