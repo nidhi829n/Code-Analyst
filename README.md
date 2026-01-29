@@ -1,4 +1,4 @@
-🚀 Project: Code Analyst AI
+🚀 Project: **Code Analyst AI**
 
 Code Analyst AI is a full-stack web application that helps developers analyze and review their source code using AI-powered suggestions. It provides instant feedback on code quality, detects potential bugs, suggests optimizations, and follows best coding practices to improve performance and maintainability.
 
@@ -29,13 +29,13 @@ POST /ai/get-review
 
 ---
 
-Send your source code and receive:
+**Send your source code and receive:**
 
-Code quality analysis
+1. Code quality analysis
 
-Bug detection
+2. Bug detection
 
-Optimization tips
+3. Optimization tips
 
 ---
 Best practice suggestions
@@ -48,26 +48,18 @@ Best practice suggestions
 
 **Frontend:**
 
-1.React.js
-
-2.Axios
-
-3.HTML5
-
-4.CSS3
-
+1. React.js
+2. Axios
+3. HTML5
+4. CSS3
 5.JavaScript
 
 **Backend:**
 
 1.Node.js
-
 2.Express.js
-
 3.Google Generative AI
-
 4.dotenv
-
 5.Cors
 
 ---
@@ -120,11 +112,8 @@ Response:
 AI-generated review including:
 
 1.Code quality feedback
-
 2.Bug detection
-
 3.Optimization suggestions
-
 4.Best practices
 
 ---
@@ -136,9 +125,6 @@ The purpose of Code Analyst AI is to assist developers in improving their code q
 ✨ Future Enhancements
 
 1.Support for multiple programming languages
-
 2.Authentication system
-
 3.Code review history
-
 4.UI improvements
