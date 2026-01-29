@@ -57,9 +57,13 @@ Best practice suggestions
 **Backend:**
 
 1.Node.js
+
 2.Express.js
+
 3.Google Generative AI
+
 4.dotenv
+
 5.Cors
 
 ---
@@ -112,8 +116,11 @@ Response:
 AI-generated review including:
 
 1.Code quality feedback
+
 2.Bug detection
+
 3.Optimization suggestions
+
 4.Best practices
 
 ---
