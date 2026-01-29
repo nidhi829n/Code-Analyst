@@ -2,8 +2,7 @@
 
 Code Analyst AI is a full-stack web application that helps developers analyze and review their source code using AI-powered suggestions. It provides instant feedback on code quality, detects potential bugs, suggests optimizations, and follows best coding practices to improve performance and maintainability.
 
-🖼️ Project Preview
-
+---
 📌 Features
 
 🧠 AI-Powered Code Analysis
@@ -28,6 +27,7 @@ Uses .env file to securely manage API keys and sensitive data.
 
 POST /ai/get-review
 
+---
 
 Send your source code and receive:
 
@@ -37,9 +37,12 @@ Bug detection
 
 Optimization tips
 
+---
 Best practice suggestions
 
 🔥 Lightweight & Easy to Deploy
+
+---
 
 🛠️ Tech Stack
 Frontend:
@@ -65,7 +68,7 @@ Google Generative AI
 dotenv
 
 CORS
-
+---
 📂 Project Structure
 Code-Analyst/
 │
@@ -82,6 +85,7 @@ Code-Analyst/
 │
 └── README.md
 
+---
 ⚙️ Installation & Setup
 1️⃣ Clone the repository
 git clone https://github.com/your-username/Code-Analyst.git
@@ -126,7 +130,8 @@ Optimization suggestions
 
 Best practices
 
-🎯 Purpose
+
+---🎯 Purpose
 
 The purpose of Code Analyst AI is to assist developers in improving their code quality by providing quick and intelligent AI-based feedback without manual code review.
 
