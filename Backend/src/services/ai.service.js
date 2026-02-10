@@ -9,7 +9,7 @@ async function generateContent(code) {
   console.log("KEY LENGTH:", process.env.GOOGLE_GEMINI_KEY?.length);
 
   const result = await genAI.models.generateContent({
-    model: "models/gemini-1.0-pro", // ✅ supported & stable
+    model: "models/gemini-1.0-pro", 
 
     systemInstruction: `
 You are a strict code reviewer.
