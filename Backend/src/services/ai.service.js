@@ -2,7 +2,7 @@ const axios = require("axios");
 
 async function generateContent(code) {
   const response = await axios.post(
-    "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
     {
       contents: [
         {
@@ -24,5 +24,6 @@ async function generateContent(code) {
 }
 
 module.exports = generateContent;
+
 
 
