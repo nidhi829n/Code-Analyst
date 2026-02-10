@@ -10,7 +10,7 @@ async function generateContent(code) {
   console.log("KEY LENGTH:", process.env.GOOGLE_GEMINI_KEY?.length);
 
   const result = await genAI.models.generateContent({
-    model: "gemini-1.5-flash",
+    model: "models/gemini-1.5-flash-001",
 
     systemInstruction: `
 You are a strict code reviewer.
