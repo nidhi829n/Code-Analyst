@@ -5,6 +5,10 @@ const genAI = new GoogleGenAI({
 });
 
 async function generateContent(code) {
+
+  console.log("KEY EXISTS:", !!process.env.GOOGLE_GEMINI_KEY);
+  console.log("KEY LENGTH:", process.env.GOOGLE_GEMINI_KEY?.length);
+
   const result = await genAI.models.generateContent({
     model: "gemini-1.5-flash",
 
@@ -58,7 +62,7 @@ Rules:
     }
   });
 
-  return result.text;
+  return result.response.text();
 }
 
 module.exports = generateContent;
