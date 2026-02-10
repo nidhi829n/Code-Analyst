@@ -5,12 +5,11 @@ const genAI = new GoogleGenAI({
 });
 
 async function generateContent(code) {
-
   console.log("KEY EXISTS:", !!process.env.GOOGLE_GEMINI_KEY);
   console.log("KEY LENGTH:", process.env.GOOGLE_GEMINI_KEY?.length);
 
   const result = await genAI.models.generateContent({
-    model: "models/gemini-flash-latest",
+    model: "models/gemini-1.0-pro", // ✅ supported & stable
 
     systemInstruction: `
 You are a strict code reviewer.
@@ -42,17 +41,13 @@ You MUST reply ONLY in this format:
 
 Rules:
 - Do not write anything outside this format.
-- Do not say "Option 1", "Option 2".
-- Do not add extra explanations.
 `,
 
     contents: [
       {
         role: "user",
         parts: [
-          {
-            text: `Review the following code strictly and follow the required format:\n\n${code}`
-          }
+          { text: code }
         ]
       }
     ],
@@ -62,7 +57,16 @@ Rules:
     }
   });
 
-  return result.response.text();
+  
+  const text =
+    result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+  if (!text) {
+    throw new Error("Gemini returned empty response");
+  }
+
+  return text;
 }
 
 module.exports = generateContent;
+
