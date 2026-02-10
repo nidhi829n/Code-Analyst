@@ -6,7 +6,7 @@ const genAI = new GoogleGenAI({
 
 async function generateContent(code) {
   const result = await genAI.models.generateContent({
-    model: "models/gemini-flash-latest",
+    model: "gemini-1.5-flash",
 
     systemInstruction: `
 You are a strict code reviewer.
