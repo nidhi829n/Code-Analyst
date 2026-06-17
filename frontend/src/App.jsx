@@ -5,16 +5,16 @@ import {
 } from "react-router-dom";
 
 import Landing from "./pages/landing";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
 
-import Dashboard from "./pages/Dashboard";
-import History from "./pages/History";
+import Dashboard from "./pages/dashboard";
+import History from "./pages/history";
 import ReviewDetails from "./pages/ReviewDetails";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 
 function App() {
   return (
