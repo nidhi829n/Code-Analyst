@@ -135,23 +135,6 @@ Request:
 }
 ```
 
-## 📸 Screenshots
-
-### Landing Page
-
-(Add Screenshot Here)
-
-### Dashboard
-
-(Add Screenshot Here)
-
-### Review History
-
-(Add Screenshot Here)
-
-### Profile Page
-
-(Add Screenshot Here)
 
 ## 🎯 Future Enhancements
 
