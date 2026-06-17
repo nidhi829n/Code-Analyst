@@ -1,150 +1,175 @@
-🚀 Project: **Code Analyst AI**
+# 🚀 Code Analyst - AI Code Review Platform
 
-Code Analyst AI is a full-stack web application that helps developers analyze and review their source code using AI-powered suggestions. It provides instant feedback on code quality, detects potential bugs, suggests optimizations, and follows best coding practices to improve performance and maintainability.
+Code Analyst is a full-stack AI-powered code review platform that analyzes source code and generates intelligent feedback using Google Gemini AI. The platform helps developers identify bugs, improve code quality, follow best practices, and write cleaner software.
 
----
+## 🌐 Live Demo
 
-## 🖼️ Project Screenshot
- ![Code Analyst Screenshot](./codeAnalyst.png)
+Frontend: https://code-analyst.vercel.app/
 
----
-📌 Features
+Backend: https://code-analyst-1.onrender.com/
 
-🧠 AI-Powered Code Analysis
-Uses Google Generative AI (@google/genai) to intelligently review code.
+## ✨ Features
 
-⚡ REST API Backend
-Built with Node.js and Express.js for fast and scalable performance.
+- AI-powered code review using Google Gemini AI
+- User Authentication (JWT)
+- Secure Login & Registration
+- Protected Routes
+- Review History Management
+- Detailed Review Viewing
+- Delete Reviews
+- User Profile Dashboard
+- Responsive UI
+- REST API Architecture
 
-🎨 Interactive Frontend (React.js)
-User-friendly UI for submitting code and viewing AI-generated feedback.
+## 🛠️ Tech Stack
 
-🔗 API Communication using Axios
-Axios is used to send code from frontend to backend and receive responses.
+### Frontend
+- React.js
+- React Router DOM
+- Axios
+- React Markdown
+- Prism.js
+- CSS
 
-🌐 CORS Enabled
-Ensures smooth communication between frontend and backend.
+### Backend
+- Node.js
+- Express.js
+- JWT Authentication
+- bcrypt.js
+- MongoDB Atlas
+- Mongoose
 
-📦 Environment-Based Configuration
-Uses .env file to securely manage API keys and sensitive data.
+### AI Integration
+- Google Gemini API
 
-🚀 Simple API Endpoint
+## 📂 Project Structure
 
-POST /ai/get-review
-
----
-
-**Send your source code and receive:**
-
-1. Code quality analysis
-
-2. Bug detection
-
-3. Optimization tips
-
----
-Best practice suggestions
-
-🔥 Lightweight & Easy to Deploy
-
----
-
-🛠️ Tech Stack
-
-**Frontend:**
-
-1. React.js
- 
-2. Axios
-  
-3. HTML5
-  
-4. CSS3
-  
-5. JavaScript
-
-
-**Backend:**
-
-1.Node.js
-
-2.Express.js
-
-3.Google Generative AI
-
-4.dotenv
-
-5.Cors
-
----
-📂 Project Structure
+```bash
 Code-Analyst/
 │
 ├── frontend/
 │   ├── src/
+│   ├── public/
 │   └── package.json
 │
-├── backend/
+├── Backend/
 │   ├── controllers/
 │   ├── routes/
-│   ├── .env
-│   ├── server.js
-│   └── package.json
+│   ├── middleware/
+│   ├── models/
+│   ├── config/
+│   └── server.js
 │
 └── README.md
+```
 
----
-⚙️ Installation & Setup
-1️⃣ Clone the repository
-git clone https://github.com/your-username/Code-Analyst.git
+## 🔐 Authentication Flow
 
-2️⃣ Backend Setup
-cd backend
+1. User Signup
+2. User Login
+3. JWT Token Generation
+4. Protected Route Access
+5. Secure API Requests
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/nidhi829n/Code-Analyst.git
+```
+
+### Move into Project
+
+```bash
+cd Code-Analyst
+```
+
+### Backend Setup
+
+```bash
+cd Backend
 npm install
-Create a .env file:
-GOOGLE_GEMINI_KEY=your_api_key_here
+```
 
-Run backend:
-nodemon server.js
+Create a `.env` file:
 
-3️⃣ Frontend Setup
+```env
+PORT=5000
+
+MONGODB_URI=your_mongodb_connection_string
+
+JWT_SECRET=your_jwt_secret
+
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Start backend:
+
+```bash
+npm start
+```
+
+### Frontend Setup
+
+```bash
 cd frontend
 npm install
-npm start
+npm run dev
+```
 
-📡 API Usage
-Endpoint:
+## 📡 API Endpoint
+
+### Generate AI Review
+
+```http
 POST /ai/get-review
+```
 
-Request Body:
+Request:
+
+```json
 {
-  "code": "your source code here"
+  "code": "function sum(){ return 1+1 }",
+  "language": "javascript"
 }
+```
 
-Response:
+## 📸 Screenshots
 
-AI-generated review including:
+### Landing Page
 
-1.Code quality feedback
+(Add Screenshot Here)
 
-2.Bug detection
+### Dashboard
 
-3.Optimization suggestions
+(Add Screenshot Here)
 
-4.Best practices
+### Review History
+
+(Add Screenshot Here)
+
+### Profile Page
+
+(Add Screenshot Here)
+
+## 🎯 Future Enhancements
+
+- Multi-language support
+- Code quality score
+- Export review as PDF
+- Team collaboration
+- Review sharing
+- Syntax-specific suggestions
+
+## 👩‍💻 Author
+
+**Nidhi Mishra**
+
+GitHub:
+https://github.com/nidhi829n
+
 
 ---
-🎯 Purpose
 
-The purpose of Code Analyst AI is to assist developers in improving their code quality by providing quick and intelligent AI-based feedback without manual code review.
-
----
-✨ Future Enhancements
-
-1.Support for multiple programming languages
-
-2.Authentication system
-
-3.Code review history
-
-4.UI improvements
+⭐ If you found this project useful, consider giving it a star.
