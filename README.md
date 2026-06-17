@@ -5,7 +5,7 @@ Code Analyst AI is a full-stack web application that helps developers analyze an
 ---
 
 ## 🖼️ Project Screenshot
- ![Code Analyst Screenshot](./code%20analyst.png)
+ ![Code Analyst Screenshot](./codeAnalyst.png)
 
 ---
 📌 Features
