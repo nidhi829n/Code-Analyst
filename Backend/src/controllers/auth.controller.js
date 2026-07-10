@@ -2,116 +2,101 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-module.exports.signup = async (req, res) => {
-  try {
+const asyncHandler = require("../middleware/asyncHandler");
+const ApiError = require("../utils/ApiError");
+const ApiResponse = require("../utils/ApiResponse");
+
+
+module.exports.signup = asyncHandler(async (req, res) => {
 
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({
-        message: "All fields are required",
-      });
+        throw new ApiError(400, "All fields are required");
     }
 
-    const existingUser = await User.findOne({
-      email,
-    });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({
-        message: "User already exists",
-      });
+        throw new ApiError(400, "User already exists");
     }
 
-    const hashedPassword =
-      await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
+        name,
+        email,
+        password: hashedPassword,
     });
 
-    res.status(201).json({
-      message: "User created successfully",
-      user: {
+    const createdUser = {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-      },
-    });
+    };
 
-  } catch (error) {
+    return res.status(201).json(
+        new ApiResponse(
+            201,
+            createdUser,
+            "User created successfully"
+        )
+    );
 
-    console.error(error);
+});
 
-    res.status(500).json({
-      message: "Server Error",
-    });
 
-  }
-};
-
-module.exports.login = async (req, res) => {
-  try {
+module.exports.login = asyncHandler(async (req, res) => {
 
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({
-        message: "All fields are required",
-      });
+        throw new ApiError(400, "All fields are required");
     }
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({
-        message: "Invalid credentials",
-      });
+        throw new ApiError(401, "Invalid credentials");
     }
 
     const isMatch = await bcrypt.compare(
-      password,
-      user.password
+        password,
+        user.password
     );
 
     if (!isMatch) {
-      return res.status(400).json({
-        message: "Invalid credentials",
-      });
+        throw new ApiError(401, "Invalid credentials");
     }
 
     const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
+        {
+            id: user._id,
+            role: user.role,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "7d",
+        }
     );
 
-    res.status(200).json({
-      message: "Login successful",
-      token,
-      user: {
+    const loggedInUser = {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-      },
-    });
+    };
 
-  } catch (error) {
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                token,
+                user: loggedInUser,
+            },
+            "Login successful"
+        )
+    );
 
-    console.error(error);
-
-    res.status(500).json({
-      message: "Server Error",
-    });
-
-  }
-};
+});

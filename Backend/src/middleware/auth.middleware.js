@@ -1,39 +1,35 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = async (
-  req,
-  res,
-  next
-) => {
+const asyncHandler = require("./asyncHandler");
+const ApiError = require("../utils/ApiError");
 
-  try {
+module.exports = asyncHandler(async (req, res, next) => {
 
-    const authHeader =
-      req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      return res.status(401).json({
-        message: "Unauthorized",
-      });
+        throw new ApiError(
+            401,
+            "Unauthorized"
+        );
     }
 
-    const token =
-      authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+        throw new ApiError(
+            401,
+            "Token not found"
+        );
+    }
 
     const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
+        token,
+        process.env.JWT_SECRET
     );
 
     req.user = decoded;
 
     next();
 
-  } catch (error) {
-
-    return res.status(401).json({
-      message: "Invalid Token",
-    });
-
-  }
-};
+});

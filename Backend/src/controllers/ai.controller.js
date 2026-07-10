@@ -1,30 +1,36 @@
 const generateContent = require("../services/ai.service");
 const Review = require("../models/review");
 
-module.exports.getReview = async (req, res) => {
-  try {
+const asyncHandler = require("../middleware/asyncHandler");
+const ApiError = require("../utils/ApiError");
+const ApiResponse = require("../utils/ApiResponse");
+
+module.exports.getReview = asyncHandler(async (req, res) => {
+
     const { code, language } = req.body;
 
     if (!code) {
-      return res.status(400).json({ error: "Code is required" });
+        throw new ApiError(
+            400,
+            "Code is required"
+        );
     }
 
-   const review = await generateContent(code);
-       
-       await Review.create({
-            user: req.user.id,
+    const review = await generateContent(code);
 
-            code,
+    await Review.create({
+        user: req.user.id,
+        code,
+        language,
+        review,
+    });
 
-            language,
-
+    return res.status(200).json(
+        new ApiResponse(
+            200,
             review,
-      });
+            "Review generated successfully"
+        )
+    );
 
-     res.json(review);
-
-  } catch (err) {
-    console.error("AI ERROR:", err);
-    res.status(500).json({ error: "AI generation failed" });
-  }
-};
+});

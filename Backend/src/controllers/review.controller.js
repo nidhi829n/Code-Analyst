@@ -1,106 +1,104 @@
 const Review = require("../models/review");
 
-module.exports.getAllReviews = async (req, res) => {
-  try {
+const asyncHandler = require("../middleware/asyncHandler");
+const ApiError = require("../utils/ApiError");
+const ApiResponse = require("../utils/ApiResponse");
+
+
+module.exports.getAllReviews = asyncHandler(async (req, res) => {
+
     const reviews = await Review.find({
-      user: req.user.id,
-})
-.sort({
-  createdAt: -1,
+        user: req.user.id,
+    }).sort({
+        createdAt: -1,
+    });
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            reviews,
+            "Reviews fetched successfully"
+        )
+    );
+
 });
-    res.status(200).json(reviews);
 
-  } catch (error) {
-    console.error(error);
 
-    res.status(500).json({
-      message: "Failed to fetch reviews",
-    });
-  }
-};
-
-module.exports.getReviewById = async (req, res) => {
-  try {
-
-    const review = await Review.findById(req.params.id);
-
-    if (!review) {
-      return res.status(404).json({
-        message: "Review not found",
-      });
-    }
-
-    res.status(200).json(review);
-
-  } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-      message: "Server Error",
-    });
-  }
-};
-
-module.exports.deleteReview = async (req, res) => {
-  try {
+module.exports.getReviewById = asyncHandler(async (req, res) => {
 
     const review = await Review.findOne({
-      _id: req.params.id,
-      user: req.user.id,
+        _id: req.params.id,
+        user: req.user.id,
     });
 
     if (!review) {
-      return res.status(404).json({
-        message: "Review not found",
-      });
+        throw new ApiError(
+            404,
+            "Review not found"
+        );
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            review,
+            "Review fetched successfully"
+        )
+    );
+
+});
+
+
+module.exports.deleteReview = asyncHandler(async (req, res) => {
+
+    const review = await Review.findOne({
+        _id: req.params.id,
+        user: req.user.id,
+    });
+
+    if (!review) {
+        throw new ApiError(
+            404,
+            "Review not found"
+        );
     }
 
     await review.deleteOne();
 
-    res.status(200).json({
-      message: "Review deleted successfully",
-    });
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            null,
+            "Review deleted successfully"
+        )
+    );
 
-  } catch (error) {
+});
 
-    console.error(error);
 
-    res.status(500).json({
-      message: "Server Error",
-    });
-
-  }
-};
-
-module.exports.getStats = async (req, res) => {
-  try {
+module.exports.getStats = asyncHandler(async (req, res) => {
 
     const reviews = await Review.find({
-      user: req.user.id,
+        user: req.user.id,
     });
 
     const totalReviews = reviews.length;
 
-    const languagesUsed =
-      [...new Set(
-        reviews.map(
-          (review) => review.language
+    const languagesUsed = [
+        ...new Set(
+            reviews.map((review) => review.language)
+        ),
+    ].length;
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                totalReviews,
+                languagesUsed,
+            },
+            "Statistics fetched successfully"
         )
-      )].length;
+    );
 
-    res.status(200).json({
-      totalReviews,
-      languagesUsed,
-    });
-
-  } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-      message: "Failed to fetch stats",
-    });
-
-  }
-};
+});
