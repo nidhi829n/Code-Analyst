@@ -11,14 +11,13 @@ module.exports.signup = asyncHandler(async (req, res) => {
 
     const { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
-        throw new ApiError(400, "All fields are required");
-    }
-
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-        throw new ApiError(400, "User already exists");
+        throw new ApiError(
+            409,
+            "User already exists"
+        );
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -51,14 +50,13 @@ module.exports.login = asyncHandler(async (req, res) => {
 
     const { email, password } = req.body;
 
-    if (!email || !password) {
-        throw new ApiError(400, "All fields are required");
-    }
-
     const user = await User.findOne({ email });
 
     if (!user) {
-        throw new ApiError(401, "Invalid credentials");
+        throw new ApiError(
+            401,
+            "Invalid email or password"
+        );
     }
 
     const isMatch = await bcrypt.compare(
@@ -67,7 +65,10 @@ module.exports.login = asyncHandler(async (req, res) => {
     );
 
     if (!isMatch) {
-        throw new ApiError(401, "Invalid credentials");
+        throw new ApiError(
+            401,
+            "Invalid email or password"
+        );
     }
 
     const token = jwt.sign(
