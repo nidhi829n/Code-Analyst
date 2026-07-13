@@ -6,11 +6,13 @@ const reviewRoutes = require("./routes/review.route");
 const authRoutes = require("./routes/auth.route");
 
 const errorHandler = require("./middleware/error.middleware");
+const morgan = require("morgan");
+const logger = require("./config/logger");
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
+app.use(morgan("combined", { stream: { write: (message) => logger.info(message.trim()) } }));
 
 app.get("/", (req, res) => {
     res.send("Hello World");
