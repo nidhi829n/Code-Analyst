@@ -300,17 +300,6 @@ GOOGLE_GEMINI_KEY=
 
 ---
 
-# 📸 Screenshots
-
-> Add screenshots here
-
-- Landing Page
-- Dashboard
-- AI Review
-- Review History
-
----
-
 # 📈 Future Improvements
 
 - Docker Support
