@@ -3,6 +3,11 @@ const router = express.Router();
 
 const reviewController = require("../controllers/review.controller");
 const authMiddleware = require("../middleware/auth.middleware");
+const {
+    apiLimiter,
+} = require("../middleware/rateLimit.middleware");
+
+router.use(apiLimiter);
 
 router.get("/", authMiddleware, reviewController.getAllReviews);
 router.get("/stats", authMiddleware, reviewController.getStats);
