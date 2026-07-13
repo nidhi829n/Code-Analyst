@@ -322,7 +322,7 @@ https://github.com/nidhi829n
 
 LinkedIn
 
-(Add your LinkedIn)
+https://www.linkedin.com/in/nidhi-mishra-512327243/
 
 ---
 
