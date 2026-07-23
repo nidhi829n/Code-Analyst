@@ -1,263 +1,107 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
-import {
-  getReviews,
-  deleteReview,
-} from "../services/reviewService";
+import axios from "axios";
+import { API_URL } from "../config/api";
+import ReviewCard from "../components/history/ReviewCard"; // Update this import path if needed based on your folder structure
 
 function History() {
-  const [reviews, setReviews] =
-    useState([]);
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
 
-  const [search, setSearch] =
-    useState("");
+    const fetchReviews = async () => {
+        try {
+            const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    fetchReviews();
-  }, []);
+            const response = await axios.get(
+                `${API_URL}/api/v1/reviews`, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
-  const fetchReviews = async () => {
-    try {
-      const data =
-        await getReviews();
-
-      setReviews(data);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-
-      await deleteReview(id);
-
-      setReviews(
-        reviews.filter(
-          (review) =>
-            review._id !== id
-        )
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-    }
-  };
-
-  const filteredReviews =
-    reviews.filter(
-      (review) =>
-        review.language
-          .toLowerCase()
-          .includes(
-            search.toLowerCase()
-          ) ||
-        review.code
-          .toLowerCase()
-          .includes(
-            search.toLowerCase()
-          )
-    );
-
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#000",
-        color: "white",
-        padding: "40px",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "48px",
-          marginBottom: "25px",
-        }}
-      >
-        Review History
-      </h1>
-
-      {/* Search */}
-
-      <input
-        type="text"
-        placeholder="Search reviews..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
+            setReviews(response.data.data);
+        } catch (error) {
+            console.log(error.response?.data || error.message);
+        } finally {
+            setLoading(false);
         }
-        style={{
-          width: "100%",
-          padding: "16px",
-          borderRadius: "12px",
-          border:
-            "1px solid #27272a",
-          background: "#18181b",
-          color: "white",
-          marginBottom: "30px",
-          fontSize: "16px",
-          outline: "none",
-        }}
-      />
+    };
 
-      {/* Empty State */}
+    useEffect(() => {
+        fetchReviews();
+    }, []);
 
-      {filteredReviews.length === 0 && (
-        <div
-          style={{
-            background: "#18181b",
-            border:
-              "1px solid #27272a",
-            borderRadius: "16px",
-            padding: "40px",
-            textAlign: "center",
-            color: "#9ca3af",
-          }}
-        >
-          No reviews found.
-        </div>
-      )}
+    const filteredReviews = reviews.filter((review) => {
+        const query = searchQuery.toLowerCase();
+        const language = review?.language?.toLowerCase() || "";
+        const summary = review?.review?.summary?.toLowerCase() || "";
+        
+        return language.includes(query) || summary.includes(query);
+    });
 
-      {/* Review Cards */}
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-        }}
-      >
-        {filteredReviews.map(
-          (review) => (
-            <div
-              key={review._id}
-              style={{
-                background:
-                  "#18181b",
-                border:
-                  "1px solid #27272a",
-                borderRadius:
-                  "16px",
-                padding: "25px",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent:
-                    "space-between",
-                  marginBottom:
-                    "15px",
-                }}
-              >
-                <span
-                  style={{
-                    background:
-                      "#4f46e5",
-                    padding:
-                      "8px 14px",
-                    borderRadius:
-                      "8px",
-                    fontSize:
-                      "14px",
-                  }}
-                >
-                  {
-                    review.language
-                  }
-                </span>
-
-                <span
-                  style={{
-                    color:
-                      "#9ca3af",
-                  }}
-                >
-                  {new Date(
-                    review.createdAt
-                  ).toLocaleDateString()}
-                </span>
-              </div>
-
-              <pre
-                style={{
-                  color:
-                    "#e5e7eb",
-                  whiteSpace:
-                    "pre-wrap",
-                  marginBottom:
-                    "20px",
-                  fontSize:
-                    "15px",
-                }}
-              >
-                {review.code.slice(
-                  0,
-                  150
-                )}
-                ...
-              </pre>
-
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                }}
-              >
-                <Link
-                  to={`/review/${review._id}`}
-                  style={{
-                    background:
-                      "#10b981",
-                    color:
-                      "white",
-                    padding:
-                      "10px 18px",
-                    borderRadius:
-                      "10px",
-                    textDecoration:
-                      "none",
-                  }}
-                >
-                  View Details
-                </Link>
-
-                <button
-                  onClick={() =>
-                    handleDelete(
-                      review._id
-                    )
-                  }
-                  style={{
-                    background:
-                      "#ef4444",
-                    color:
-                      "white",
-                    border:
-                      "none",
-                    padding:
-                      "10px 18px",
-                    borderRadius:
-                      "10px",
-                    cursor:
-                      "pointer",
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
+    if (loading) {
+        return (
+            <div className="p-8 text-zinc-100 min-h-screen bg-[#09090b]">
+                <h1 className="text-3xl font-semibold mb-6">Review History</h1>
+                <p className="text-zinc-400 text-base animate-pulse">Loading your review history...</p>
             </div>
-          )
-        )}
-      </div>
-    </div>
-  );
+        );
+    }
+
+    return (
+        <div className="p-8 text-zinc-100 min-h-screen bg-[#09090b]">
+            {/* Header & Search Bar Row */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 className="text-3xl font-semibold mb-1">Review History</h1>
+                    <p className="text-zinc-400 text-sm">
+                        Total Reviews: {filteredReviews.length}
+                    </p>
+                </div>
+                
+                <div className="relative w-full md:w-80">
+                    <span className="absolute inset-y-0 left-3 flex items-center text-zinc-500">
+                        🔍
+                    </span>
+                    <input
+                        type="text"
+                        placeholder="Search by language or summary..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-[#121214] border border-zinc-800 rounded-lg py-2.5 pl-10 pr-4 text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 text-sm transition-all shadow-inner"
+                    />
+                </div>
+            </div>
+
+            {reviews.length === 0 ? (
+                <div className="text-center mt-20 bg-[#18181b] border border-zinc-800 rounded-xl p-10 max-w-lg mx-auto shadow-xl">
+                    <h2 className="text-xl font-medium mb-2 text-zinc-200">No Reviews Yet</h2>
+                    <p className="text-zinc-400 text-base">
+                        Generate your first AI review to see it here.
+                    </p>
+                </div>
+            ) : (
+                <div>
+                    {filteredReviews.length > 0 ? (
+                        /* ⬅️ Grid layout fills the screen width evenly (2 columns on medium screens, 3 on large/extra-large screens) */
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                            {filteredReviews.map((review, index) => (
+                                <ReviewCard key={review._id || index} review={review} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-16 border border-dashed border-zinc-800 rounded-xl mt-6">
+                            <p className="text-zinc-400 text-base">
+                                No reviews found matching "{searchQuery}".
+                            </p>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default History;

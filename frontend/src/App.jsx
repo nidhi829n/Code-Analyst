@@ -19,13 +19,10 @@ import Navbar from "./components/navbar";
 function App() {
   return (
     <BrowserRouter>
-
       <Navbar />
 
       <Routes>
-
         {/* Public Routes */}
-
         <Route
           path="/"
           element={<Landing />}
@@ -42,7 +39,6 @@ function App() {
         />
 
         {/* Protected Routes */}
-
         <Route
           path="/dashboard"
           element={
@@ -70,6 +66,7 @@ function App() {
           }
         />
 
+        {/* Dynamic Detailed Review Route */}
         <Route
           path="/review/:id"
           element={
@@ -78,9 +75,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
-
     </BrowserRouter>
   );
 }

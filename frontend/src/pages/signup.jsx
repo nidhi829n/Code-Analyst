@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 import { signupUser } from "../services/authService";
 
 function Signup() {
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -26,46 +26,44 @@ function Signup() {
     e.preventDefault();
 
     try {
-
       const data = await signupUser(formData);
 
-      setMessage(data.message);
+      setMessage(data.message || "Account created successfully!");
 
       setTimeout(() => {
         navigate("/login");
       }, 1500);
-
     } catch (error) {
-
       setMessage(
-        error.response?.data?.message ||
-        "Signup Failed"
+        error.response?.data?.message || "Signup Failed"
       );
-
     }
   }
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
+    <div className="min-h-screen bg-[#09090b] text-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-[#121214] p-8 rounded-2xl border border-zinc-800 shadow-2xl relative">
+        
+        {/* Back to Landing Page Link */}
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-xs font-medium text-zinc-400 hover:text-white transition-colors mb-6 cursor-pointer"
+        >
+          <FaArrowLeft /> Back to home
+        </Link>
 
-      <div className="w-full max-w-md bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
-
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="text-3xl font-bold mb-6 tracking-tight">
           Create Account
         </h1>
 
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-4"
-        >
-
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             name="name"
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700"
+            className="w-full p-3 rounded-xl bg-[#18181b] border border-zinc-800 focus:outline-none focus:border-blue-600 text-sm transition-all"
           />
 
           <input
@@ -74,7 +72,7 @@ function Signup() {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700"
+            className="w-full p-3 rounded-xl bg-[#18181b] border border-zinc-800 focus:outline-none focus:border-blue-600 text-sm transition-all"
           />
 
           <input
@@ -83,37 +81,31 @@ function Signup() {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-700"
+            className="w-full p-3 rounded-xl bg-[#18181b] border border-zinc-800 focus:outline-none focus:border-blue-600 text-sm transition-all"
           />
 
           <button
             type="submit"
-            className="w-full bg-white text-black py-3 rounded-lg font-semibold"
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-semibold transition-all text-sm shadow-lg shadow-blue-900/20 cursor-pointer"
           >
             Create Account
           </button>
-
         </form>
 
-        <p className="mt-4 text-green-400">
-          {message}
-        </p>
+        {message && (
+          <p className="mt-4 text-green-400 text-sm font-medium">
+            {message}
+          </p>
+        )}
 
-        <p className="mt-6 text-zinc-400">
-
+        <p className="mt-6 text-zinc-400 text-sm">
           Already have an account?{" "}
-
-          <Link
-            to="/login"
-            className="text-white"
-          >
+          <Link to="/login" className="text-white font-medium hover:underline">
             Login
           </Link>
-
         </p>
 
       </div>
-
     </div>
   );
 }

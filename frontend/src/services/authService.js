@@ -3,7 +3,7 @@ import { API_URL } from "../config/api";
 
 export const signupUser = async (userData) => {
   const response = await axios.post(
-    `${API_URL}/auth/signup`,
+    `${API_URL}/api/v1/auth/signup`,
     userData
   );
 
@@ -12,7 +12,7 @@ export const signupUser = async (userData) => {
 
 export const loginUser = async (userData) => {
   const response = await axios.post(
-    `${API_URL}/auth/login`,
+    `${API_URL}/api/v1/auth/login`,
     userData
   );
 

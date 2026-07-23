@@ -1,23 +1,33 @@
 import { useEffect, useState } from "react";
-import { getReviews } from "../services/reviewService";
+import axios from "axios";
+import { API_URL } from "../config/api";
+import { FaUserCircle, FaShieldAlt, FaCode, FaEnvelope, FaCalendarAlt } from "react-icons/fa";
 
 function Profile() {
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
-
-  const [totalReviews, setTotalReviews] =
-    useState(0);
+  const [user, setUser] = useState(null);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch user details from local storage or api if stored securely
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+
     async function fetchReviews() {
       try {
-        const reviews = await getReviews();
-
-        setTotalReviews(reviews.length);
-
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${API_URL}/api/v1/reviews`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setTotalReviews(response.data.data.length);
       } catch (error) {
-        console.error(error);
+        console.log(error.response?.data || error.message);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -25,125 +35,70 @@ function Profile() {
   }, []);
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#000",
-        color: "white",
-        padding: "40px",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "48px",
-          marginBottom: "30px",
-        }}
-      >
-        My Profile
-      </h1>
-
-      <div
-        style={{
-          background: "#18181b",
-          border: "1px solid #27272a",
-          borderRadius: "20px",
-          padding: "35px",
-          maxWidth: "850px",
-        }}
-      >
-        {/* User Info */}
-
-        <div
-          style={{
-            marginBottom: "30px",
-            borderBottom:
-              "1px solid #27272a",
-            paddingBottom: "20px",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "32px",
-              marginBottom: "8px",
-            }}
-          >
-            {user?.name}
-          </h2>
-
-          <p
-            style={{
-              color: "#9ca3af",
-              fontSize: "18px",
-            }}
-          >
-            {user?.email}
+    <div className="min-h-screen bg-[#09090b] text-zinc-100 p-6 lg:p-10">
+      <div className="max-w-4xl mx-auto">
+        {/* Page Header */}
+        <div className="mb-8 pb-6 border-b border-zinc-800/80">
+          <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-2.5">
+            <span>👤</span> Account Profile
+          </h1>
+          <p className="text-zinc-400 text-sm mt-1">
+            Manage your account settings, role permissions, and review analytics.
           </p>
         </div>
 
-        {/* Stats */}
+        {/* Profile Card Container */}
+        <div className="bg-[#121214] border border-zinc-800/80 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+          {/* Subtle Accent Glow */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "1fr 1fr",
-            gap: "25px",
-          }}
-        >
-          <div
-            style={{
-              background: "#0f0f0f",
-              padding: "25px",
-              borderRadius: "12px",
-              border:
-                "1px solid #27272a",
-            }}
-          >
-            <h4
-              style={{
-                color: "#9ca3af",
-                marginBottom: "10px",
-              }}
-            >
-              Role
-            </h4>
-
-            <p
-              style={{
-                fontSize: "24px",
-                fontWeight: "600",
-              }}
-            >
-              {user?.role}
-            </p>
+          {/* User Header Info with Avatar Graphic */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-8 border-b border-zinc-800 relative z-10">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-blue-900/20">
+              {user?.name ? user.name.charAt(0).toUpperCase() : <FaUserCircle />}
+            </div>
+            
+            <div className="space-y-1">
+              <h2 className="text-2xl font-bold text-white tracking-wide">
+                {user?.name || "Developer"}
+              </h2>
+              <p className="text-zinc-400 text-sm flex items-center gap-2">
+                <FaEnvelope className="text-zinc-500" /> {user?.email || "No email provided"}
+              </p>
+            </div>
           </div>
 
-          <div
-            style={{
-              background: "#0f0f0f",
-              padding: "25px",
-              borderRadius: "12px",
-              border:
-                "1px solid #27272a",
-            }}
-          >
-            <h4
-              style={{
-                color: "#9ca3af",
-                marginBottom: "10px",
-              }}
-            >
-              Total Reviews
-            </h4>
+          {/* Metrics / Stats Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8 relative z-10">
+            {/* Role Card */}
+            <div className="bg-[#18181b] border border-zinc-800/80 rounded-xl p-6 shadow-inner flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-xl">
+                <FaShieldAlt />
+              </div>
+              <div>
+                <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-1">
+                  Access Role
+                </p>
+                <p className="text-xl font-bold text-zinc-100 capitalize">
+                  {user?.role || "User"}
+                </p>
+              </div>
+            </div>
 
-            <p
-              style={{
-                fontSize: "24px",
-                fontWeight: "600",
-              }}
-            >
-              {totalReviews}
-            </p>
+            {/* Total Reviews Card */}
+            <div className="bg-[#18181b] border border-zinc-800/80 rounded-xl p-6 shadow-inner flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl">
+                <FaCode />
+              </div>
+              <div>
+                <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-1">
+                  Total Code Reviews
+                </p>
+                <p className="text-xl font-bold text-zinc-100">
+                  {loading ? "..." : totalReviews}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

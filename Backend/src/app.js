@@ -4,6 +4,7 @@ const cors = require("cors");
 const aiRoutes = require("./routes/ai.routes");
 const reviewRoutes = require("./routes/review.route");
 const authRoutes = require("./routes/auth.route");
+const chatRoutes = require("./routes/chat.routes");
 
 const errorHandler = require("./middleware/error.middleware");
 const morgan = require("morgan");
@@ -21,9 +22,10 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-app.use("/ai", aiRoutes);
-app.use("/reviews", reviewRoutes);
-app.use("/auth", authRoutes);
+app.use("/api/v1/ai", aiRoutes);
+app.use("/api/v1/reviews", reviewRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/chat", chatRoutes);
 
 app.use(errorHandler);
 

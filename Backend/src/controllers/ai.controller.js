@@ -1,4 +1,4 @@
-const generateContent = require("../services/ai.service");
+const { generateContent } = require("../services/ai.service");
 const Review = require("../models/review");
 
 const asyncHandler = require("../middleware/asyncHandler");
@@ -8,19 +8,22 @@ module.exports.getReview = asyncHandler(async (req, res) => {
 
     const { code, language } = req.body;
 
-    const review = await generateContent(code);
+   const review = await generateContent(
+    code,
+    language
+);
 
-    await Review.create({
+    const savedReview = await Review.create({
         user: req.user.id,
         code,
         language,
         review,
     });
 
-    return res.status(200).json(
+    return res.status(201).json(
         new ApiResponse(
-            200,
-            review,
+            201,
+            savedReview,
             "Review generated successfully"
         )
     );
