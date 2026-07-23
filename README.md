@@ -1,114 +1,470 @@
-<div align="center">
-
 # 🚀 CodeAnalyst
 
-> **AI-Powered Code Review Platform built with the MERN Stack & Google Gemini.**
-
-Analyze source code, detect bugs, improve code quality, generate production-ready suggestions, and interact with AI through follow-up conversations.
-
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19-blue?logo=react&logoColor=white" alt="React">
-  <img src="https://img.shields.io/badge/Node.js-Express-green?logo=node.js&logoColor=white" alt="Node.js">
-  <img src="https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb&logoColor=white" alt="MongoDB">
-  <img src="https://img.shields.io/badge/AI-Google%20Gemini-blue?logo=google&logoColor=white" alt="Gemini">
-  <img src="https://img.shields.io/badge/Auth-JWT-orange?logo=jsonwebtokens&logoColor=white" alt="JWT">
+
+AI-Powered Code Review Platform built with the MERN Stack and Google Gemini AI.
+
+Analyze code, detect bugs, receive intelligent feedback, generate improved code, maintain review history, and interact with AI through follow-up conversations.
+
 </p>
 
 <p align="center">
-  <a href="#-live-demo">🌐 Live Demo</a> • 
-  <a href="#-api-overview">Backend API</a> • 
-  <a href="https://github.com/nidhi829n/Code-Analyst/issues">Report Issue</a>
+
+[![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white)]()
+[![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white)]()
+[![Express](https://img.shields.io/badge/Framework-Express-000000?logo=express)]()
+[![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)]()
+[![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4)]()
+[![JWT](https://img.shields.io/badge/Auth-JWT-orange)]()
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)]()
+
 </p>
 
-</div>
+<p align="center">
+
+🌐 **Live Demo:** https://code-analyst.vercel.app
+
+💻 **Repository:** https://github.com/nidhi829n/Code-Analyst
+
+</p>
 
 ---
 
-## 📸 Screenshots
+# 📖 Overview
 
-| Landing Page | AI Workspace |
-| :---: | :---: |
-| ![Landing](images/landing.png) | ![Dashboard](images/dashboard.png) |
+CodeAnalyst is a full-stack AI-powered code review platform that helps developers analyze source code using Google's Gemini AI.
 
-| Review History | AI Review Details | Authentication |
-| :---: | :---: | :---: |
-| ![History](images/history.png) | ![Review](images/review.png) | ![Login](images/login.png) |
+Users can securely authenticate, submit code in multiple programming languages, receive structured AI reviews, ask follow-up questions, and maintain a personal review history.
+
+The backend follows production-ready software engineering practices including authentication, request validation, centralized error handling, structured logging, security middleware, API rate limiting, and CI/CD automation.
 
 ---
 
-## 🎯 Project Highlights
+# ✨ Features
 
-* **Secure Authentication**: Robust JWT-based auth and protected routes.
-* **AI Code Reviews**: Instant deep analysis and bug detection via Google Gemini.
-* **AI Follow-up Chat**: Interactive contextual conversations regarding code fixes.
-* **Review History**: Persistent user-specific code review tracking.
-* **Detailed Review Reports**: Comprehensive breakdown of code quality issues.
-* **Production-ready Backend**: Hardened with security, validation, and structured logging.
-* **Modular Component Architecture**: Scalable, clean frontend structure.
-* **CI/CD Pipeline**: Automated deployment workflows via GitHub Actions.
+## 🤖 AI Features
 
----
-
-## ✨ Features
-
-### 🤖 AI Capabilities
-* AI-powered code reviews & bug identification
-* Multi-language syntax and pattern support
-* Real-time AI follow-up chat contextually linked to submissions
-* Granular code improvement suggestions
-
-### 🔒 Authentication
-* JSON Web Token (JWT) secure authentication flow
-* Protected route middleware on frontend and backend
-* User-specific session history management
-
-### ⚙️ Backend Engineering
-* Clean RESTful API architecture
-* Request payload validation via Zod
-* Centralized error handling and async error wrapping
-* Enterprise-grade logging with Winston and Morgan
-* Production security layers using Rate Limiting and Helmet
-
-### 🚀 DevOps & Tooling
-* Automated CI/CD pipelines via GitHub Actions
-* Code style enforcement using ESLint
-* Cloud deployments hosted seamlessly on Vercel and Render
+- AI-powered code review using Google Gemini
+- Multi-language code analysis
+- AI-generated improved code suggestions
+- AI follow-up chat for clarification
+- Readability analysis
+- Performance analysis
+- Security analysis
+- Maintainability analysis
 
 ---
 
-## 🛠️ Tech Stack
+## 👤 User Features
 
-| Layer | Technology |
-| :--- | :--- |
-| **Frontend** | React, Vite |
-| **Backend** | Node.js, Express |
-| **Database** | MongoDB Atlas |
-| **AI Integration** | Google Gemini API |
-| **Authentication** | JSON Web Tokens (JWT) |
-| **Validation** | Zod |
-| **Logging** | Winston, Morgan |
-| **Security** | Helmet, Express Rate Limiter |
-| **Deployment** | Vercel (Frontend), Render (Backend) |
+- Secure Signup & Login
+- JWT Authentication
+- Protected Routes
+- User-specific Review History
+- Detailed Review Page
+- Search Review History
+- Persistent Review Storage
 
 ---
 
-## 🔄 How It Works
+## 🛡 Backend Features
+
+- RESTful API Architecture
+- JWT Authentication
+- Zod Request Validation
+- Centralized Error Handling
+- Async Handler Middleware
+- Standardized API Responses
+- Winston Logging
+- Morgan Request Logging
+- Helmet Security
+- API Rate Limiting
+- Modular Folder Structure
+
+---
+
+## ⚙ DevOps
+
+- GitHub Actions CI
+- ESLint
+- Render Deployment
+- Vercel Deployment
+- MongoDB Atlas
+
+---
+
+# 📸 Screenshots
+
+## 🏠 Landing Page
+
+> Add screenshot here
+
+```
+images/landing-page.png
+```
+
+---
+
+## 🔐 Authentication
+
+> Add screenshot here
+
+```
+images/login.png
+```
+
+---
+
+## 💻 AI Workspace
+
+> Add screenshot here
+
+```
+images/dashboard.png
+```
+
+---
+
+## 📜 Review History
+
+> Add screenshot here
+
+```
+images/history.png
+```
+
+---
+
+## 📊 Review Details
+
+> Add screenshot here
+
+```
+images/review-details.png
+```
+
+---
+
+# 🏗 Architecture
 
 ```text
-User
-  │
-  ▼
+                        +----------------------+
+                        |      Browser         |
+                        +----------+-----------+
+                                   |
+                             HTTPS Requests
+                                   |
+                                   ▼
+                      +--------------------------+
+                      |     React Frontend       |
+                      |       (Vercel)           |
+                      +------------+-------------+
+                                   |
+                               Axios REST API
+                                   |
+                                   ▼
+                    +-----------------------------+
+                    |      Express Backend         |
+                    |        (Render)             |
+                    +--------------+--------------+
+                                   |
+         ---------------------------------------------------------
+         |             |              |            |              |
+         ▼             ▼              ▼            ▼              ▼
+
+    JWT Auth      Validation     Controllers   Middleware     Logger
+                    (Zod)                           |
+                                                   ▼
+                                            Rate Limiter
+                                                   |
+                                                   ▼
+                                            Google Gemini
+                                                   |
+                                                   ▼
+                                             MongoDB Atlas
+```
+
+---
+
+# 🔄 Request Lifecycle
+
+```text
+Client
+
+↓
+
 React Frontend
-  │ (Axios)
-  ▼
-Express API
-  │ (JWT Verification)
-  ▼
-Controller Logic
-  │
-  ├─► Google Gemini API
-  │
-  └─► MongoDB Atlas
-  │
-  ▼
-AI Review Response Delivered
+
+↓
+
+Axios
+
+↓
+
+Express Server
+
+↓
+
+Helmet
+
+↓
+
+Rate Limiter
+
+↓
+
+JWT Authentication
+
+↓
+
+Zod Validation
+
+↓
+
+Controller
+
+↓
+
+Google Gemini AI
+
+↓
+
+MongoDB
+
+↓
+
+API Response
+
+↓
+
+Client
+```
+
+---
+
+# 🛠 Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Frontend | React.js, Vite |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas |
+| AI | Google Gemini API |
+| Authentication | JWT |
+| Validation | Zod |
+| Security | Helmet, Express Rate Limit |
+| Logging | Winston, Morgan |
+| Deployment | Vercel, Render |
+| CI/CD | GitHub Actions |
+
+---
+
+# 📂 Project Structure
+
+```text
+CodeAnalyst
+│
+├── Backend
+│   ├── src
+│   │   ├── config
+│   │   ├── controllers
+│   │   ├── middleware
+│   │   ├── models
+│   │   ├── routes
+│   │   ├── services
+│   │   ├── utils
+│   │   └── validators
+│   │
+│   ├── logs
+│   ├── server.js
+│   └── package.json
+│
+├── frontend
+│   ├── src
+│   ├── public
+│   └── package.json
+│
+└── .github
+    └── workflows
+```
+
+---
+
+# 🔐 Security
+
+Production-grade backend security practices include:
+
+- JWT Authentication
+- Protected Routes
+- Helmet Security Headers
+- API Rate Limiting
+- Zod Validation
+- Centralized Error Handling
+- Standardized API Responses
+
+---
+
+# 📊 Logging
+
+The application uses Winston and Morgan for structured logging.
+
+```text
+logs/
+
+├── combined.log
+
+└── error.log
+```
+
+---
+
+# 📡 REST API
+
+## Authentication
+
+```
+POST /api/v1/auth/signup
+POST /api/v1/auth/login
+```
+
+---
+
+## AI
+
+```
+POST /api/v1/ai/get-review
+POST /api/v1/chat
+```
+
+---
+
+## Reviews
+
+```
+GET /api/v1/reviews
+GET /api/v1/reviews/:id
+DELETE /api/v1/reviews/:id
+GET /api/v1/reviews/stats
+```
+
+---
+
+# ⚙ CI Pipeline
+
+GitHub Actions automatically runs on every push to the **main** branch.
+
+Pipeline includes:
+
+- Checkout Repository
+- Setup Node.js
+- Install Dependencies
+- ESLint Verification
+- Build Validation
+
+Only successful builds are deployed to Render.
+
+---
+
+# ☁ Deployment
+
+| Service | Platform |
+|----------|----------|
+| Frontend | Vercel |
+| Backend | Render |
+| Database | MongoDB Atlas |
+| AI | Google Gemini |
+
+---
+
+# 🚀 Getting Started
+
+## Clone Repository
+
+```bash
+git clone https://github.com/nidhi829n/Code-Analyst.git
+```
+
+---
+
+## Backend Setup
+
+```bash
+cd Backend
+
+npm install
+
+npm run dev
+```
+
+---
+
+## Frontend Setup
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create a `.env` file inside the Backend directory.
+
+```env
+PORT=
+
+MONGO_URI=
+
+JWT_SECRET=
+
+GOOGLE_GEMINI_KEY=
+```
+
+---
+
+# 🎯 Future Improvements
+
+- Docker Support
+- Redis Caching
+- AWS ECS Deployment
+- Unit Testing
+- Code Version Comparison
+- Review Sharing
+- Team Collaboration
+- Admin Dashboard
+- Dark/Light Theme
+- Review Export as PDF
+
+---
+
+# 👨‍💻 Author
+
+## Nidhi Mishra
+
+**GitHub**
+
+https://github.com/nidhi829n
+
+**LinkedIn**
+
+https://www.linkedin.com/in/nidhi-mishra-512327243/
+
+---
+
+# ⭐ Support
+
+If you found this project helpful, consider giving it a **⭐ Star** on GitHub.
+
+It helps the project reach more developers and motivates future improvements.
+
+---
+
+<p align="center">
+
+Made with ❤️ using React, Node.js, MongoDB & Google Gemini AI.
+
+</p>
