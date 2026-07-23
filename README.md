@@ -32,13 +32,24 @@ Engineered with enterprise patterns, the backend features rigorous request paylo
 
 ## 📸 Visual Showcase
 
-| Landing Page | AI Interactive Workspace |
-| :---: | :---: |
-| ![Landing](images/landing.png) | ![Dashboard](images/dashboard.png) |
+<div align="center">
 
-| Review History & Session Logs | Granular AI Review Breakdown | Secure Authentication Suite |
-| :---: | :---: | :---: |
-| ![History](images/history.png) | ![Review](images/review.png) | ![Login](images/login.png) |
+### 🏠 Landing Page
+<img src="images/landing.png" width="850px" alt="Landing Page">
+
+### 💻 AI Workspace Dashboard
+<img src="images/dashboard.png" width="850px" alt="AI Workspace">
+
+### 📜 Review History & Session Logs
+<img src="images/history.png" width="850px" alt="Review History">
+
+### 📊 Granular AI Review Breakdown
+<img src="images/review.png" width="850px" alt="Review Details">
+
+### 🔐 Secure Authentication Suite
+<img src="images/login.png" width="850px" alt="Authentication">
+
+</div>
 
 ---
 
