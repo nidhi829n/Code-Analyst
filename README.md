@@ -1,470 +1,94 @@
-# 🚀 CodeAnalyst
+<div align="center">
+
+# 🚀 CodeAnalyst | Enterprise-Grade AI Code Review & Intelligence Platform
+
+> **An advanced, production-ready full-stack SaaS platform designed to automate code quality audits, security vulnerability detection, and architectural refactoring using Google Gemini AI.**
 
 <p align="center">
-
-AI-Powered Code Review Platform built with the MERN Stack and Google Gemini AI.
-
-Analyze code, detect bugs, receive intelligent feedback, generate improved code, maintain review history, and interact with AI through follow-up conversations.
-
+  <img src="https://img.shields.io/badge/React-19-%2361DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React">
+  <img src="https://img.shields.io/badge/Node.js-Express-%23339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-%2347A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
+  <img src="https://img.shields.io/badge/Google%20Gemini-AI-%234285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Gemini">
+  <img src="https://img.shields.io/badge/Security-Helmet%20%2F%20Zod-%23FF5722?style=for-the-badge&logo=shield&logoColor=white" alt="Security">
 </p>
 
 <p align="center">
-
-[![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white)]()
-[![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white)]()
-[![Express](https://img.shields.io/badge/Framework-Express-000000?logo=express)]()
-[![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)]()
-[![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4)]()
-[![JWT](https://img.shields.io/badge/Auth-JWT-orange)]()
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)]()
-
+  <a href="https://code-analyst.vercel.app">🌐 <strong>Live Demo</strong></a> • 
+  <a href="https://github.com/nidhi829n/Code-Analyst">💻 <strong>Repository</strong></a> • 
+  <a href="#-api-reference">🔌 <strong>API Documentation</strong></a> • 
+  <a href="#-author--professional-profile">👨‍💻 <strong>Contact</strong></a>
 </p>
 
-<p align="center">
-
-🌐 **Live Demo:** https://code-analyst.vercel.app
-
-💻 **Repository:** https://github.com/nidhi829n/Code-Analyst
-
-</p>
+</div>
 
 ---
 
-# 📖 Overview
+## 💡 Executive Summary
 
-CodeAnalyst is a full-stack AI-powered code review platform that helps developers analyze source code using Google's Gemini AI.
+**CodeAnalyst** bridges the gap between static code analysis and cutting-edge generative AI. Built for engineering teams, developer workflows, and technical assessments, it performs real-time multi-language source evaluation, deep vulnerability scanning, performance optimization tracking, and interactive follow-up contextual querying. 
 
-Users can securely authenticate, submit code in multiple programming languages, receive structured AI reviews, ask follow-up questions, and maintain a personal review history.
-
-The backend follows production-ready software engineering practices including authentication, request validation, centralized error handling, structured logging, security middleware, API rate limiting, and CI/CD automation.
+Engineered with enterprise patterns, the backend features rigorous request payload validation, strict rate limiting, enterprise logging tiers, and a robust CI/CD deployment pipeline.
 
 ---
 
-# ✨ Features
+## 📸 Visual Showcase
 
-## 🤖 AI Features
+| Landing Page | AI Interactive Workspace |
+| :---: | :---: |
+| ![Landing](images/landing.png) | ![Dashboard](images/dashboard.png) |
 
-- AI-powered code review using Google Gemini
-- Multi-language code analysis
-- AI-generated improved code suggestions
-- AI follow-up chat for clarification
-- Readability analysis
-- Performance analysis
-- Security analysis
-- Maintainability analysis
+| Review History & Session Logs | Granular AI Review Breakdown | Secure Authentication Suite |
+| :---: | :---: | :---: |
+| ![History](images/history.png) | ![Review](images/review.png) | ![Login](images/login.png) |
 
 ---
 
-## 👤 User Features
+## 💎 Architectural Highlights & Engineering Excellence
 
-- Secure Signup & Login
-- JWT Authentication
-- Protected Routes
-- User-specific Review History
-- Detailed Review Page
-- Search Review History
-- Persistent Review Storage
+* **Enterprise Security Hardening**: Implements `Helmet` middleware for HTTP header protection, strict CORS governance, and layer-7 `express-rate-limit` restrictions to mitigate volumetric DDoS and brute-force attacks.
+* **Declarative Schema Validation**: Leverages `Zod` validation schemas across all endpoints to guarantee payload integrity before reaching controllers.
+* **Centralized Fault Tolerance**: Custom asynchronous handler wrappers combined with global middleware catch-all blocks ensure predictable, standardized JSON error payloads.
+* **Dual-Channel Production Logging**: Complete system visibility powered by `Winston` (for persistent multi-transport error logs) paired with `Morgan` (for high-throughput HTTP access tracing).
+* **Context-Aware LLM Pipelines**: Structured prompt engineering pipelines interfacing securely with the Google Gemini API to yield deterministic multi-metric evaluations (Security, Readability, Maintainability, and Performance).
 
 ---
 
-## 🛡 Backend Features
+## 🛠️ Technology Stack Matrix
 
-- RESTful API Architecture
-- JWT Authentication
-- Zod Request Validation
-- Centralized Error Handling
-- Async Handler Middleware
-- Standardized API Responses
-- Winston Logging
-- Morgan Request Logging
-- Helmet Security
-- API Rate Limiting
-- Modular Folder Structure
-
----
-
-## ⚙ DevOps
-
-- GitHub Actions CI
-- ESLint
-- Render Deployment
-- Vercel Deployment
-- MongoDB Atlas
+| Architectural Tier | Selected Technology Stack | Purpose & Rationale |
+| :--- | :--- | :--- |
+| **Frontend UI/UX** | React.js, Vite | High-performance client rendering, ultra-fast HMR development. |
+| **Backend API Engine**| Node.js, Express.js | Non-blocking I/O runtime optimized for asynchronous microservice communication. |
+| **Data Layer** | MongoDB Atlas, Mongoose | Schema-flexible document store handling dynamic review objects and histories. |
+| **AI Processing** | Google Gemini API | Advanced context-window LLM driving code reviews and chat threads. |
+| **Access Control** | JSON Web Tokens (JWT) | Stateless cryptographic session validation across protected routes. |
+| **Validation & Safety**| Zod, Helmet, Rate-Limit | Strict schema validation and perimeter defense utilities. |
+| **Observability** | Winston, Morgan | Enterprise grade file/console transport logging. |
+| **CI/CD & Hosting** | GitHub Actions, Vercel, Render | Automated linting, test validation, and zero-downtime cloud releases. |
 
 ---
 
-# 📸 Screenshots
+## 🔄 System Architecture & Data Flow
 
-## 🏠 Landing Page
-
-> Add screenshot here
-
-```
-images/landing-page.png
-```
-
----
-
-## 🔐 Authentication
-
-> Add screenshot here
-
-```
-images/login.png
-```
-
----
-
-## 💻 AI Workspace
-
-> Add screenshot here
-
-```
-images/dashboard.png
-```
-
----
-
-## 📜 Review History
-
-> Add screenshot here
-
-```
-images/history.png
-```
-
----
-
-## 📊 Review Details
-
-> Add screenshot here
-
-```
-images/review-details.png
-```
-
----
-
-# 🏗 Architecture
-
+### High-Level Deployment Topology
 ```text
-                        +----------------------+
-                        |      Browser         |
-                        +----------+-----------+
-                                   |
-                             HTTPS Requests
-                                   |
-                                   ▼
-                      +--------------------------+
-                      |     React Frontend       |
-                      |       (Vercel)           |
-                      +------------+-------------+
-                                   |
-                               Axios REST API
-                                   |
-                                   ▼
-                    +-----------------------------+
-                    |      Express Backend         |
-                    |        (Render)             |
-                    +--------------+--------------+
-                                   |
-         ---------------------------------------------------------
-         |             |              |            |              |
-         ▼             ▼              ▼            ▼              ▼
-
-    JWT Auth      Validation     Controllers   Middleware     Logger
-                    (Zod)                           |
-                                                   ▼
-                                            Rate Limiter
-                                                   |
-                                                   ▼
-                                            Google Gemini
-                                                   |
-                                                   ▼
-                                             MongoDB Atlas
-```
-
----
-
-# 🔄 Request Lifecycle
-
-```text
-Client
-
-↓
-
-React Frontend
-
-↓
-
-Axios
-
-↓
-
-Express Server
-
-↓
-
-Helmet
-
-↓
-
-Rate Limiter
-
-↓
-
-JWT Authentication
-
-↓
-
-Zod Validation
-
-↓
-
-Controller
-
-↓
-
-Google Gemini AI
-
-↓
-
-MongoDB
-
-↓
-
-API Response
-
-↓
-
-Client
-```
-
----
-
-# 🛠 Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| Frontend | React.js, Vite |
-| Backend | Node.js, Express.js |
-| Database | MongoDB Atlas |
-| AI | Google Gemini API |
-| Authentication | JWT |
-| Validation | Zod |
-| Security | Helmet, Express Rate Limit |
-| Logging | Winston, Morgan |
-| Deployment | Vercel, Render |
-| CI/CD | GitHub Actions |
-
----
-
-# 📂 Project Structure
-
-```text
-CodeAnalyst
-│
-├── Backend
-│   ├── src
-│   │   ├── config
-│   │   ├── controllers
-│   │   ├── middleware
-│   │   ├── models
-│   │   ├── routes
-│   │   ├── services
-│   │   ├── utils
-│   │   └── validators
-│   │
-│   ├── logs
-│   ├── server.js
-│   └── package.json
-│
-├── frontend
-│   ├── src
-│   ├── public
-│   └── package.json
-│
-└── .github
-    └── workflows
-```
-
----
-
-# 🔐 Security
-
-Production-grade backend security practices include:
-
-- JWT Authentication
-- Protected Routes
-- Helmet Security Headers
-- API Rate Limiting
-- Zod Validation
-- Centralized Error Handling
-- Standardized API Responses
-
----
-
-# 📊 Logging
-
-The application uses Winston and Morgan for structured logging.
-
-```text
-logs/
-
-├── combined.log
-
-└── error.log
-```
-
----
-
-# 📡 REST API
-
-## Authentication
-
-```
-POST /api/v1/auth/signup
-POST /api/v1/auth/login
-```
-
----
-
-## AI
-
-```
-POST /api/v1/ai/get-review
-POST /api/v1/chat
-```
-
----
-
-## Reviews
-
-```
-GET /api/v1/reviews
-GET /api/v1/reviews/:id
-DELETE /api/v1/reviews/:id
-GET /api/v1/reviews/stats
-```
-
----
-
-# ⚙ CI Pipeline
-
-GitHub Actions automatically runs on every push to the **main** branch.
-
-Pipeline includes:
-
-- Checkout Repository
-- Setup Node.js
-- Install Dependencies
-- ESLint Verification
-- Build Validation
-
-Only successful builds are deployed to Render.
-
----
-
-# ☁ Deployment
-
-| Service | Platform |
-|----------|----------|
-| Frontend | Vercel |
-| Backend | Render |
-| Database | MongoDB Atlas |
-| AI | Google Gemini |
-
----
-
-# 🚀 Getting Started
-
-## Clone Repository
-
-```bash
-git clone https://github.com/nidhi829n/Code-Analyst.git
-```
-
----
-
-## Backend Setup
-
-```bash
-cd Backend
-
-npm install
-
-npm run dev
-```
-
----
-
-## Frontend Setup
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
----
-
-# 🔑 Environment Variables
-
-Create a `.env` file inside the Backend directory.
-
-```env
-PORT=
-
-MONGO_URI=
-
-JWT_SECRET=
-
-GOOGLE_GEMINI_KEY=
-```
-
----
-
-# 🎯 Future Improvements
-
-- Docker Support
-- Redis Caching
-- AWS ECS Deployment
-- Unit Testing
-- Code Version Comparison
-- Review Sharing
-- Team Collaboration
-- Admin Dashboard
-- Dark/Light Theme
-- Review Export as PDF
-
----
-
-# 👨‍💻 Author
-
-## Nidhi Mishra
-
-**GitHub**
-
-https://github.com/nidhi829n
-
-**LinkedIn**
-
-https://www.linkedin.com/in/nidhi-mishra-512327243/
-
----
-
-# ⭐ Support
-
-If you found this project helpful, consider giving it a **⭐ Star** on GitHub.
-
-It helps the project reach more developers and motivates future improvements.
-
----
-
-<p align="center">
-
-Made with ❤️ using React, Node.js, MongoDB & Google Gemini AI.
-
+        [ Browser Client ]
+                │
+         HTTPS Requests
+                ▼
+        [ React Frontend ] (Vercel Edge)
+                │
+         Axios REST Payload
+                ▼
+      [ Express API Backend ] (Render Cloud Container)
+        ├── Helmet Security Header Layer
+        ├── Rate Limiter Barrier
+        ├── JWT Cryptographic Verification
+        ├── Zod Schema Payload Sanitizer
+        └── Async Controller Logic Dispatcher
+                │
+         ┌──────┴──────┐
+         ▼             ▼
+  [ Google Gemini ]  [ MongoDB Atlas ]
+  AI Intelligence    Persistent Storage
 </p>
