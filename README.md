@@ -14,8 +14,7 @@
 
 <p align="center">
   <a href="https://code-analyst.vercel.app">🌐 <strong>Live Demo</strong></a> • 
-  <a href="https://github.com/nidhi829n/Code-Analyst">💻 <strong>Repository</strong></a> • 
-  <a href="#-author--professional-profile">👨‍💻 <strong>Contact</strong></a>
+  <a href="https://github.com/nidhi829n/Code-Analyst">💻 <strong>Repository</strong></a> 
 </p>
 
 </div>
@@ -35,16 +34,13 @@ Engineered with enterprise patterns, the backend features rigorous request paylo
 <div align="center">
 
 ### 🏠 Landing Page
-<img src="images/landing.png" width="850px" alt="Landing Page">
+<img src="images/landing-page.png" width="850px" alt="Landing Page">
 
 ### 💻 AI Workspace Dashboard
 <img src="images/dashboard.png" width="850px" alt="AI Workspace">
 
 ### 📜 Review History & Session Logs
 <img src="images/history.png" width="850px" alt="Review History">
-
-### 📊 Granular AI Review Breakdown
-<img src="images/review.png" width="850px" alt="Review Details">
 
 ### 🔐 Secure Authentication Suite
 <img src="images/login.png" width="850px" alt="Authentication">
