@@ -1,5 +1,4 @@
 const { GoogleGenAI } = require("@google/genai");
-const { text } = require("express");
 
 const genAI = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_KEY,
