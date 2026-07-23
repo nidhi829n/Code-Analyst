@@ -15,7 +15,6 @@
 <p align="center">
   <a href="https://code-analyst.vercel.app">🌐 <strong>Live Demo</strong></a> • 
   <a href="https://github.com/nidhi829n/Code-Analyst">💻 <strong>Repository</strong></a> • 
-  <a href="#-api-reference">🔌 <strong>API Documentation</strong></a> • 
   <a href="#-author--professional-profile">👨‍💻 <strong>Contact</strong></a>
 </p>
 
@@ -91,4 +90,4 @@ Engineered with enterprise patterns, the backend features rigorous request paylo
          ▼             ▼
   [ Google Gemini ]  [ MongoDB Atlas ]
   AI Intelligence    Persistent Storage
-</p>
+
