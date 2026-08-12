@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import apiClient from "../../services/apiClient";
 import { API_URL } from "../../config/api";
 
 function FollowUpChat({ code, language, review }) {
@@ -22,9 +22,7 @@ function FollowUpChat({ code, language, review }) {
         setLoading(true);
 
         try {
-            const token = localStorage.getItem("token");
-
-            const response = await axios.post(
+            const response = await apiClient.post(
                 `${API_URL}/api/v1/chat`,
                 {
                     code,
@@ -32,11 +30,6 @@ function FollowUpChat({ code, language, review }) {
                     review,
                     messages: updatedMessages,
                     question
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
                 }
             );
 

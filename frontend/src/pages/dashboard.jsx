@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "../services/apiClient";
 import {
   FaBook,
   FaBolt,
@@ -38,16 +38,10 @@ function Dashboard() {
   async function reviewCode() {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
 
-      const response = await axios.post(
+      const response = await apiClient.post(
         `${API_URL}/api/v1/ai/get-review`,
-        { code, language },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { code, language }
       );
 
       setReview(response.data.data.review);

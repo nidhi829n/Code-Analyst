@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "../services/apiClient";
 import { API_URL } from "../config/api";
 import ReviewCard from "../components/history/ReviewCard"; // Update this import path if needed based on your folder structure
 
@@ -10,16 +10,7 @@ function History() {
 
     const fetchReviews = async () => {
         try {
-            const token = localStorage.getItem("token");
-
-            const response = await axios.get(
-                `${API_URL}/api/v1/reviews`, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await apiClient.get(`${API_URL}/api/v1/reviews`);
 
             setReviews(response.data.data);
         } catch (error) {

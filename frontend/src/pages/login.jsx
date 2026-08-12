@@ -28,11 +28,11 @@ function Login() {
 
     try {
       const data = await loginUser(formData);
+      const user = data.data.user || data.data;
 
-      localStorage.setItem("token", data.data.token);
-      localStorage.setItem("user", JSON.stringify(data.data.user));
+      localStorage.setItem("user", JSON.stringify(user));
 
-      setUser(data.data.user);
+      setUser(user);
       navigate("/dashboard");
     } catch (error) {
       setMessage(

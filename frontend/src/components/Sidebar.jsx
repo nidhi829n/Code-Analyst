@@ -1,13 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
+import { logoutUser } from "../services/authService";
 
 function Sidebar() {
   const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    navigate("/login");
+  const logout = async () => {
+    try {
+      await logoutUser();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
   };
 
   return (

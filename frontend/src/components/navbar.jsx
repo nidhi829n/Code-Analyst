@@ -1,15 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
+import { logoutUser } from "../services/authService";
 
 function Navbar() {
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    navigate("/login");
+  const logout = async () => {
+    try {
+      await logoutUser();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
   };
 
   return (
@@ -37,7 +42,7 @@ function Navbar() {
         CodeAnalyst
       </h2>
 
-      {token && (
+      {user && (
         <div
           style={{
             display: "flex",

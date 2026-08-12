@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import apiClient from "../services/apiClient";
 import { API_URL } from "../config/api";
 import { FaBook, FaBolt, FaShieldAlt, FaTools, FaArrowLeft } from "react-icons/fa";
 import OverallScore from "../components/review/OverallScore";
@@ -20,10 +20,7 @@ function ReviewDetails() {
     useEffect(() => {
         const fetchSingleReview = async () => {
             try {
-                const token = localStorage.getItem("token");
-                const response = await axios.get(`${API_URL}/api/v1/reviews/${id}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const response = await apiClient.get(`${API_URL}/api/v1/reviews/${id}`);
                 
                 // Adjust based on your backend response structure (e.g., response.data.data)
                 setReviewData(response.data.data || response.data);

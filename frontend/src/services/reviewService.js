@@ -1,57 +1,18 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 
 import { API_URL } from "../config/api";
 
 export const getReviews = async () => {
-  const token =
-localStorage.getItem("token");
-
-const response =
-await axios.get(
-  `${API_URL}/reviews`,
-  {
-    headers: {
-      Authorization:
-        `Bearer ${token}`,
-    },
-  }
-);
-
+  const response = await apiClient.get(`${API_URL}/reviews`);
   return response.data;
 };
 
 export const deleteReview = async (id) => {
-
-  const token =
-    localStorage.getItem("token");
-
-  const response = await axios.delete(
-    `${API_URL}/reviews/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
+  const response = await apiClient.delete(`${API_URL}/reviews/${id}`);
   return response.data;
 };
 
 export const getStats = async () => {
-
-  const token =
-    localStorage.getItem("token");
-
-  const response =
-    await axios.get(
-      `${API_URL}/reviews/stats`,
-      {
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-        },
-      }
-    );
-
+  const response = await apiClient.get(`${API_URL}/reviews/stats`);
   return response.data;
 };

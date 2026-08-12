@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "../services/apiClient";
 import { API_URL } from "../config/api";
 import { FaUserCircle, FaShieldAlt, FaCode, FaEnvelope, FaCalendarAlt } from "react-icons/fa";
 
@@ -17,12 +17,7 @@ function Profile() {
 
     async function fetchReviews() {
       try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`${API_URL}/api/v1/reviews`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await apiClient.get(`${API_URL}/api/v1/reviews`);
         setTotalReviews(response.data.data.length);
       } catch (error) {
         console.log(error.response?.data || error.message);

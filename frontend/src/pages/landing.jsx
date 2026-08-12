@@ -2,10 +2,10 @@ import { Navigate, Link } from "react-router-dom";
 import { FaCode, FaShieldAlt, FaBolt, FaArrowRight, FaCheckCircle } from "react-icons/fa";
 
 function Landing() {
-  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
 
   // Redirect to dashboard if already logged in
-  if (token) {
+  if (user) {
     return <Navigate to="/dashboard" replace />;
   }
 
