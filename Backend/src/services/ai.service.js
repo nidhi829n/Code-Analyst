@@ -102,7 +102,7 @@ async function generateContent(
     
 )  {
     const result = await generateGeminiResponse({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
         contents: [
     {
         role: "user",
@@ -207,7 +207,7 @@ async function generateChatResponse(
     question
 ) {
     const result = await generateGeminiResponse({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
 
         contents: [
             {
