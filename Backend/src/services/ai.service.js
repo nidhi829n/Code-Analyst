@@ -63,6 +63,8 @@ const genAI = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_KEY,
 });
 
+const GEMINI_MODEL = "gemini-3.5-flash";
+
 async function generateGeminiResponse(request) {
     try {
         return await genAI.models.generateContent(request);
@@ -122,6 +124,17 @@ async function generateGeminiResponse(request) {
         }
 
         if (
+            errorCode === 503 ||
+            errorStatus === "UNAVAILABLE" ||
+            /high demand|temporarily unavailable|service unavailable/i.test(errorMessage)
+        ) {
+            throw new ApiError(
+                503,
+                "AI service is temporarily unavailable. Please try again later."
+            );
+        }
+
+        if (
             errorCode === 400 ||
             /model|invalid argument|bad request/i.test(errorMessage)
         ) {
@@ -144,7 +157,7 @@ async function generateContent(
     
 )  {
     const result = await generateGeminiResponse({
-        model: "gemini-3.6-flash",
+        model: GEMINI_MODEL,
         contents: [
     {
         role: "user",
@@ -250,7 +263,7 @@ async function generateChatResponse(
     question
 ) {
     const result = await generateGeminiResponse({
-        model: "gemini-3.6-flash",
+        model: GEMINI_MODEL,
 
         contents: [
             {
