@@ -29,17 +29,29 @@ async function generateGeminiResponse(request) {
             throw error;
         }
 
-        const providerError = error?.error || error;
+        let providerError = error?.error || error;
+
+        if (typeof providerError === "string") {
+            try {
+                providerError = JSON.parse(providerError);
+            } catch {
+                providerError = { message: providerError };
+            }
+        }
+
         const errorCode = providerError?.code || error?.status;
         const errorStatus = providerError?.status || error?.statusCode;
         const errorMessage = typeof providerError?.message === "string"
             ? providerError.message
-            : "";
+            : typeof error?.message === "string"
+                ? error.message
+                : "";
 
         logger.error({
             event: "AI_PROVIDER_REQUEST_FAILED",
             code: errorCode,
             status: errorStatus,
+            reason: errorMessage.slice(0, 300),
         });
 
         if (errorCode === 429 || errorCode === "RESOURCE_EXHAUSTED") {
