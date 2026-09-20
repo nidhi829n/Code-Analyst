@@ -30,6 +30,7 @@ function Dashboard() {
   const [code, setCode] = useState(`function sum() {\n  return 1 + 1;\n}`);
   const [review, setReview] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     prism.highlightAll();
@@ -38,6 +39,7 @@ function Dashboard() {
   async function reviewCode() {
     try {
       setLoading(true);
+      setErrorMessage("");
 
       const response = await apiClient.post(
         `${API_URL}/api/v1/ai/get-review`,
@@ -46,7 +48,11 @@ function Dashboard() {
 
       setReview(response.data.data.review);
     } catch (error) {
-      console.log(error.response?.data || error.message);
+      setReview(null);
+      setErrorMessage(
+        error.response?.data?.message ||
+        "The review could not be generated. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -153,6 +159,16 @@ function Dashboard() {
 
           {/* Right Column: AI Analysis Output */}
           <div className="xl:col-span-7 space-y-6">
+            {errorMessage && !loading && (
+              <div
+                role="alert"
+                className="rounded-2xl border border-red-500/30 bg-red-500/10 p-5 text-red-200 shadow-xl"
+              >
+                <h3 className="font-semibold">Review failed</h3>
+                <p className="mt-1 text-sm text-red-200/80">{errorMessage}</p>
+              </div>
+            )}
+
             {!review && !loading && (
               <div className="h-full min-h-[480px] rounded-2xl border-2 border-dashed border-zinc-800/80 bg-gradient-to-b from-[#121214] to-[#09090b] flex flex-col items-center justify-center p-10 text-center shadow-sm">
                 <div className="relative w-20 h-20 mb-6 flex items-center justify-center">
