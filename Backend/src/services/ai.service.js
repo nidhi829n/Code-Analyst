@@ -90,7 +90,7 @@ async function generateContent(
     
 )  {
     const result = await generateGeminiResponse({
-        model: "models/gemini-flash-latest",
+        model: "gemini-2.5-flash",
         contents: [
     {
         role: "user",
@@ -142,7 +142,7 @@ ${code}
     },
 ],
 
-        generationConfig: {
+        config: {
             temperature: 0.1,
             responseMimeType: "application/json",
         },
@@ -195,7 +195,7 @@ async function generateChatResponse(
     question
 ) {
     const result = await generateGeminiResponse({
-        model: "models/gemini-flash-latest",
+        model: "gemini-2.5-flash",
 
         contents: [
             {
@@ -243,7 +243,7 @@ async function generateChatResponse(
             }
         ],
 
-        generationConfig: {
+        config: {
             temperature: 0.3
         }
     });
