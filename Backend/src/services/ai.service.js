@@ -1,6 +1,7 @@
 const { GoogleGenAI } = require("@google/genai");
 const { z } = require("zod");
 const ApiError = require("../utils/ApiError");
+const logger = require("../config/logger");
 
 const reviewResponseSchema = z.object({
     summary: z.string(),
@@ -30,9 +31,16 @@ async function generateGeminiResponse(request) {
 
         const providerError = error?.error || error;
         const errorCode = providerError?.code || error?.status;
+        const errorStatus = providerError?.status || error?.statusCode;
         const errorMessage = typeof providerError?.message === "string"
             ? providerError.message
             : "";
+
+        logger.error({
+            event: "AI_PROVIDER_REQUEST_FAILED",
+            code: errorCode,
+            status: errorStatus,
+        });
 
         if (errorCode === 429 || errorCode === "RESOURCE_EXHAUSTED") {
             throw new ApiError(
@@ -45,6 +53,27 @@ async function generateGeminiResponse(request) {
             throw new ApiError(
                 429,
                 "AI service quota exceeded. Please try again later."
+            );
+        }
+
+        if (
+            errorCode === 401 ||
+            errorCode === 403 ||
+            /api key|authentication|permission|unauthenticated/i.test(errorMessage)
+        ) {
+            throw new ApiError(
+                502,
+                "AI service authentication is not configured correctly"
+            );
+        }
+
+        if (
+            errorCode === 400 ||
+            /model|invalid argument|bad request/i.test(errorMessage)
+        ) {
+            throw new ApiError(
+                502,
+                "AI service configuration is invalid"
             );
         }
 
