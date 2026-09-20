@@ -20,12 +20,47 @@ const genAI = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_KEY,
 });
 
+async function generateGeminiResponse(request) {
+    try {
+        return await genAI.models.generateContent(request);
+    } catch (error) {
+        if (error instanceof ApiError) {
+            throw error;
+        }
+
+        const providerError = error?.error || error;
+        const errorCode = providerError?.code || error?.status;
+        const errorMessage = typeof providerError?.message === "string"
+            ? providerError.message
+            : "";
+
+        if (errorCode === 429 || errorCode === "RESOURCE_EXHAUSTED") {
+            throw new ApiError(
+                429,
+                "AI service quota exceeded. Please try again later."
+            );
+        }
+
+        if (/quota|rate limit|resource exhausted/i.test(errorMessage)) {
+            throw new ApiError(
+                429,
+                "AI service quota exceeded. Please try again later."
+            );
+        }
+
+        throw new ApiError(
+            502,
+            "AI service is temporarily unavailable"
+        );
+    }
+}
+
 async function generateContent(
     code,
     language
     
 )  {
-    const result = await genAI.models.generateContent({
+    const result = await generateGeminiResponse({
         model: "models/gemini-flash-latest",
         contents: [
     {
@@ -130,7 +165,7 @@ async function generateChatResponse(
     messages,
     question
 ) {
-    const result = await genAI.models.generateContent({
+    const result = await generateGeminiResponse({
         model: "models/gemini-flash-latest",
 
         contents: [
