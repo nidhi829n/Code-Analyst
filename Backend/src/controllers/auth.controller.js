@@ -29,7 +29,7 @@ const handleRefreshTokenReuse = async (session, decoded, res) => {
     const clearCookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
     };
 
     res.clearCookie("token", clearCookieOptions);
@@ -151,14 +151,14 @@ module.exports.login = asyncHandler(async (req, res) => {
     const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 15 * 60 * 1000,
     };
 
     const refreshTokenCookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
     };
 
@@ -198,7 +198,7 @@ module.exports.logout = asyncHandler(async (req, res) => {
     const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
     };
 
     return res
@@ -323,7 +323,7 @@ module.exports.refresh = asyncHandler(async (req, res) => {
     const refreshTokenCookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
     };
 
@@ -341,7 +341,7 @@ module.exports.refresh = asyncHandler(async (req, res) => {
     const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 15 * 60 * 1000,
     };
 
