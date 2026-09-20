@@ -17,6 +17,48 @@ const reviewResponseSchema = z.object({
     improvedCode: z.string(),
 }).strict();
 
+const geminiReviewResponseSchema = {
+    type: "OBJECT",
+    properties: {
+        summary: { type: "STRING" },
+        score: {
+            type: "OBJECT",
+            properties: {
+                overall: { type: "NUMBER" },
+                readability: { type: "NUMBER" },
+                performance: { type: "NUMBER" },
+                security: { type: "NUMBER" },
+                maintainability: { type: "NUMBER" },
+            },
+            required: [
+                "overall",
+                "readability",
+                "performance",
+                "security",
+                "maintainability",
+            ],
+            propertyOrdering: [
+                "overall",
+                "readability",
+                "performance",
+                "security",
+                "maintainability",
+            ],
+        },
+        strengths: {
+            type: "ARRAY",
+            items: { type: "STRING" },
+        },
+        weaknesses: {
+            type: "ARRAY",
+            items: { type: "STRING" },
+        },
+        improvedCode: { type: "STRING" },
+    },
+    required: ["summary", "score", "strengths", "weaknesses", "improvedCode"],
+    propertyOrdering: ["summary", "score", "strengths", "weaknesses", "improvedCode"],
+};
+
 const genAI = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_KEY,
 });
@@ -157,6 +199,7 @@ ${code}
         config: {
             temperature: 0.1,
             responseMimeType: "application/json",
+            responseSchema: geminiReviewResponseSchema,
         },
     });
 
