@@ -1,4 +1,20 @@
 const { GoogleGenAI } = require("@google/genai");
+const { z } = require("zod");
+const ApiError = require("../utils/ApiError");
+
+const reviewResponseSchema = z.object({
+    summary: z.string(),
+    score: z.object({
+        overall: z.number().finite().min(0).max(100),
+        readability: z.number().finite().min(0).max(100),
+        performance: z.number().finite().min(0).max(100),
+        security: z.number().finite().min(0).max(100),
+        maintainability: z.number().finite().min(0).max(100),
+    }).strict(),
+    strengths: z.array(z.string()),
+    weaknesses: z.array(z.string()),
+    improvedCode: z.string(),
+}).strict();
 
 const genAI = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_KEY,
@@ -68,26 +84,42 @@ ${code}
         },
     });
 
-    const cleanedResponse = result.text
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .trim();
+        const cleanedResponse = typeof result.text === "string"
+            ? result.text
+                .replace(/```json/g, "")
+                .replace(/```/g, "")
+                .trim()
+            : "";
 
-console.log("===== GEMINI RESPONSE =====");
-console.log(cleanedResponse);
-console.log("===========================");
+    if (!cleanedResponse) {
+        throw new ApiError(
+            502,
+            "AI returned an empty response"
+        );
+    }
 
-try {
-    return JSON.parse(cleanedResponse);
-} catch (error) {
+    let parsedResponse;
 
-  console.log(error.response);
+    try {
+        parsedResponse = JSON.parse(cleanedResponse);
+    } catch {
+        throw new ApiError(
+            502,
+            "AI returned invalid JSON"
+        );
+    }
 
-  console.log(error.response?.data);
+    const validationResult = reviewResponseSchema.safeParse(parsedResponse);
 
-  console.log(error);
+    if (!validationResult.success) {
+        throw new ApiError(
+            502,
+            "AI returned an invalid review format",
+            validationResult.error.issues
+        );
+    }
 
-}
+    return validationResult.data;
 
 }
 

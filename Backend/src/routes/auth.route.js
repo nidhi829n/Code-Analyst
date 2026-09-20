@@ -12,6 +12,7 @@ const {
 const {
     loginLimiter,
     signupLimiter,
+    refreshLimiter,
 } = require("../middleware/rateLimit.middleware");
 
 router.post(
@@ -29,6 +30,6 @@ router.post(
 );
 
 router.post("/logout", authController.logout);
-router.post("/refresh", authController.refresh);
+router.post("/refresh", refreshLimiter, authController.refresh);
 
 module.exports = router;

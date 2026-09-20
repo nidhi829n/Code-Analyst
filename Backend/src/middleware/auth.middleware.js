@@ -14,10 +14,23 @@ module.exports = asyncHandler(async (req, res, next) => {
         );
     }
 
-    const decoded = jwt.verify(
-        token,
-        process.env.JWT_SECRET
-    );
+    let decoded;
+
+    try {
+        decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+    } catch (error) {
+        if (error instanceof jwt.JsonWebTokenError) {
+            throw new ApiError(
+                401,
+                "Invalid or expired token"
+            );
+        }
+
+        throw error;
+    }
 
     req.user = decoded;
 

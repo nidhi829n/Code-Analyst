@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/apiClient";
 import { API_URL } from "../config/api";
 import { FaUserCircle, FaShieldAlt, FaCode, FaEnvelope, FaCalendarAlt } from "react-icons/fa";
+import { getTotalReviewsFromPayload } from "../utils/reviewCount";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -18,7 +19,8 @@ function Profile() {
     async function fetchReviews() {
       try {
         const response = await apiClient.get(`${API_URL}/api/v1/reviews`);
-        setTotalReviews(response.data.data.length);
+        const reviewPayload = response?.data?.data;
+        setTotalReviews(getTotalReviewsFromPayload(reviewPayload));
       } catch (error) {
         console.log(error.response?.data || error.message);
       } finally {

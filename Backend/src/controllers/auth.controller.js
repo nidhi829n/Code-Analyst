@@ -9,6 +9,38 @@ const asyncHandler = require("../middleware/asyncHandler");
 const ApiError = require("../utils/ApiError");
 const ApiResponse = require("../utils/ApiResponse");
 
+const handleRefreshTokenReuse = async (session, decoded, res) => {
+    logger.warn({
+        event: "REFRESH_TOKEN_REUSE_DETECTED",
+        userId: session.userId || decoded.id,
+        message: "Revoked refresh token reuse detected. Invalidating all active sessions for user.",
+    });
+
+    await Session.updateMany(
+        {
+            userId: session.userId,
+            revokedAt: null,
+        },
+        {
+            $set: { revokedAt: new Date() },
+        }
+    );
+
+    const clearCookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+    };
+
+    res.clearCookie("token", clearCookieOptions);
+    res.clearCookie("refreshToken", clearCookieOptions);
+
+    throw new ApiError(
+        401,
+        "Refresh token reuse detected"
+    );
+};
+
 
 module.exports.signup = asyncHandler(async (req, res) => {
 
@@ -227,35 +259,7 @@ module.exports.refresh = asyncHandler(async (req, res) => {
     }
 
     if (session.revokedAt) {
-        logger.warn({
-            event: "REFRESH_TOKEN_REUSE_DETECTED",
-            userId: session.userId || decoded.id,
-            message: "Revoked refresh token reuse detected. Invalidating all active sessions for user.",
-        });
-
-        await Session.updateMany(
-            {
-                userId: session.userId,
-                revokedAt: null,
-            },
-            {
-                $set: { revokedAt: new Date() },
-            }
-        );
-
-        const clearCookieOptions = {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
-        };
-
-        res.clearCookie("token", clearCookieOptions);
-        res.clearCookie("refreshToken", clearCookieOptions);
-
-        throw new ApiError(
-            401,
-            "Refresh token reuse detected"
-        );
+        await handleRefreshTokenReuse(session, decoded, res);
     }
 
     if (session.expiresAt && session.expiresAt < new Date()) {
@@ -274,8 +278,22 @@ module.exports.refresh = asyncHandler(async (req, res) => {
         );
     }
 
-    session.revokedAt = new Date();
-    await session.save();
+    const claimedSession = await Session.findOneAndUpdate(
+        {
+            _id: session._id,
+            revokedAt: null,
+        },
+        {
+            $set: { revokedAt: new Date() },
+        },
+        {
+            new: true,
+        }
+    );
+
+    if (!claimedSession) {
+        await handleRefreshTokenReuse(session, decoded, res);
+    }
 
     const newRefreshToken = jwt.sign(
         {
@@ -339,4 +357,4 @@ module.exports.refresh = asyncHandler(async (req, res) => {
             )
         );
 
-});
+});

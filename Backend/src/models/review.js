@@ -72,4 +72,6 @@ const reviewSchema = new mongoose.Schema(
     }
 );
 
+reviewSchema.index({ user: 1, createdAt: -1 });
+
 module.exports = mongoose.model("Review", reviewSchema);

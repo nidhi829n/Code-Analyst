@@ -11,6 +11,7 @@ const errorHandler = require("./middleware/error.middleware");
 const morgan = require("morgan");
 const logger = require("./config/logger");
 const helmet = require("helmet");
+const ApiError = require("./utils/ApiError");
 
 
 const app = express();
@@ -22,6 +23,40 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("combined", { stream: { write: (message) => logger.info(message.trim()) } }));
+
+const csrfProtection = (req, res, next) => {
+    if (["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+        return next();
+    }
+
+    let trustedOrigin;
+    try {
+        trustedOrigin = new URL(process.env.CLIENT_URL).origin;
+    } catch {
+        return next(new ApiError(500, "CSRF protection is not configured"));
+    }
+
+    const requestOrigin = req.get("origin") || req.get("referer");
+
+    if (!requestOrigin) {
+        return next(new ApiError(403, "CSRF validation failed"));
+    }
+
+    let requestOriginUrl;
+    try {
+        requestOriginUrl = new URL(requestOrigin).origin;
+    } catch {
+        return next(new ApiError(403, "CSRF validation failed"));
+    }
+
+    if (requestOriginUrl !== trustedOrigin) {
+        return next(new ApiError(403, "CSRF validation failed"));
+    }
+
+    return next();
+};
+
+app.use(csrfProtection);
 
 app.get("/", (req, res) => {
     res.send("Hello World");

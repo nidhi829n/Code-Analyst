@@ -36,6 +36,24 @@ const signupLimiter = rateLimit({
 
 });
 
+// Refresh Token Limiter
+const refreshLimiter = rateLimit({
+
+    windowMs: 15 * 60 * 1000, // 15 Minutes
+
+    max: 30,
+
+    message: {
+        success: false,
+        message: "Too many token refresh attempts. Please try again later.",
+    },
+
+    standardHeaders: true,
+
+    legacyHeaders: false,
+
+});
+
 // AI Review Limiter
 const aiLimiter = rateLimit({
 
@@ -75,6 +93,7 @@ const apiLimiter = rateLimit({
 module.exports = {
     loginLimiter,
     signupLimiter,
+    refreshLimiter,
     aiLimiter,
     apiLimiter,
 };
