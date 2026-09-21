@@ -63,7 +63,7 @@ const genAI = new GoogleGenAI({
     apiKey: process.env.GOOGLE_GEMINI_KEY,
 });
 
-const GEMINI_MODEL = "gemini-3.1-flash-lite";
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 const MAX_AI_RETRIES = 2;
 
 function wait(milliseconds) {
