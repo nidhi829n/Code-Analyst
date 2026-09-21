@@ -1,21 +1,25 @@
+require("dotenv").config();
 
-require('dotenv').config();
-const app = require('./src/app');
+const app = require("./src/app");
 const connectDB = require("./src/config/db");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
-const startServer = async () => {
-  try {
-    await connectDB();
-
-    app.listen(PORT, () => {
-      console.log("Server running on", PORT);
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        service: "Code Analyst API",
     });
-  } catch (error) {
-    console.error("Server startup failed", error);
-    process.exitCode = 1;
-  }
-};
+});
 
-startServer();
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on 0.0.0.0:${PORT}`);
+});
+
+connectDB()
+    .then(() => {
+        console.log("Database connected successfully");
+    })
+    .catch((error) => {
+        console.error("Database connection failed:", error);
+    });
