@@ -64,11 +64,17 @@ const genAI = new GoogleGenAI({
 });
 
 const GEMINI_MODEL = "gemini-3.5-flash";
+const MAX_AI_RETRIES = 2;
+
+function wait(milliseconds) {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
 
 async function generateGeminiResponse(request) {
-    try {
-        return await genAI.models.generateContent(request);
-    } catch (error) {
+    for (let attempt = 0; attempt <= MAX_AI_RETRIES; attempt += 1) {
+        try {
+            return await genAI.models.generateContent(request);
+        } catch (error) {
         if (error instanceof ApiError) {
             throw error;
         }
@@ -90,6 +96,21 @@ async function generateGeminiResponse(request) {
             : typeof error?.message === "string"
                 ? error.message
                 : "";
+
+        const isTransientFailure =
+            errorCode === 408 ||
+            errorCode === 429 ||
+            errorCode === 500 ||
+            errorCode === 502 ||
+            errorCode === 503 ||
+            errorCode === 504 ||
+            errorStatus === "UNAVAILABLE" ||
+            /high demand|temporarily unavailable|service unavailable|timeout/i.test(errorMessage);
+
+        if (isTransientFailure && attempt < MAX_AI_RETRIES) {
+            await wait(1000 * (2 ** attempt));
+            continue;
+        }
 
         logger.error({
             event: "AI_PROVIDER_REQUEST_FAILED",
@@ -148,6 +169,7 @@ async function generateGeminiResponse(request) {
             502,
             "AI service is temporarily unavailable"
         );
+        }
     }
 }
 
