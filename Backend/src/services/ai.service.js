@@ -108,9 +108,12 @@ async function generateGeminiResponse(request) {
             /high demand|temporarily unavailable|service unavailable|timeout/i.test(errorMessage);
 
         if (isTransientFailure && attempt < MAX_AI_RETRIES) {
-            await wait(1000 * (2 ** attempt));
-            continue;
-        }
+        const baseDelay = 1000 * (2 ** attempt);
+        const jitter = Math.random() * 500;
+
+        await wait(baseDelay + jitter);
+        continue;
+}
 
         logger.error({
             event: "AI_PROVIDER_REQUEST_FAILED",
